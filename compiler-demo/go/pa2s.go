@@ -18,32 +18,28 @@ type (
 
 const (
 	ITEMS = 256
+	N     = 32 * 1000 * 1000
 )
 
 var (
 	s [ITEMS]rgba_s
 
-	r [ITEMS]uint8
-	g [ITEMS]uint8
-	b [ITEMS]uint8
-	a [ITEMS]uint8
+	r, g, b, a [ITEMS]uint8
 
 	pa = rgba_pa{r[:], g[:], b[:], a[:]}
 )
 
 func pa2s(pa rgba_pa, s []rgba_s, n int) {
-	for x := 0; x < n; x++ {
-		s[x].r = pa.r[x]
-		s[x].g = pa.g[x]
-		s[x].b = pa.b[x]
-		s[x].a = pa.a[x]
+	for i := 0; i < n; i++ {
+		s[i].r = pa.r[i]
+		s[i].g = pa.g[i]
+		s[i].b = pa.b[i]
+		s[i].a = pa.a[i]
 	}
 }
 
 func main() {
-	for x := 0; x < (1000 * 1000); x++ {
-		for y := 0; y < 64; y++ {
-			pa2s(pa, s[:], ITEMS)
-		}
+	for i := 0; i < N; i++ {
+		pa2s(pa, s[:], ITEMS)
 	}
 }
